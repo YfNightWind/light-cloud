@@ -1,0 +1,14 @@
+service core-api {
+	@handler User
+	get /user/login(LoginRequest) returns (LoginResponse)
+}
+
+type LoginRequest {
+	Name string `json:"name"`
+	Password string `json:"password"`
+}
+
+type LoginResponse {
+	Token string `json:"token"`
+}
+
