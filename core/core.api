@@ -1,6 +1,11 @@
 service core-api {
-	@handler User
-	post /user/login(LoginRequest) returns (LoginResponse)
+	//用户登录
+	@handler UserLogin
+	post /user/login (LoginRequest) returns (LoginResponse)
+	
+	// 用户详细
+	@handler UserDetail
+	get /user/detail (UserDetailRequest) returns (UserDetailResponse)
 }
 
 type LoginRequest {
@@ -10,4 +15,13 @@ type LoginRequest {
 
 type LoginResponse {
 	Token string `json:"token"`
+}
+
+type UserDetailRequest {
+	Identity string `json:"identity""`
+}
+
+type UserDetailResponse {
+	Name  string `json:"name"`
+	Email string `json:"Email"`
 }

@@ -1,6 +1,6 @@
 package model
 
-type UserBasic struct {
+type UserInfo struct {
 	Id       int
 	Identity string
 	Name     string
@@ -8,7 +8,7 @@ type UserBasic struct {
 	Email    string
 }
 
-func (table UserBasic) TableName() string {
+func (table UserInfo) TableName() string {
 	// 返回数据库的用户表名
-	return "user_basic"
+	return "user_info"
 }
