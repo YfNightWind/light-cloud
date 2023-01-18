@@ -4,6 +4,7 @@ import (
 	"crypto/tls"
 	"fmt"
 	"github.com/jordan-wright/email"
+	"light-cloud/src/core/define"
 	"math/rand"
 	"net/smtp"
 	"strings"
@@ -13,11 +14,11 @@ import (
 // SendMailCode 发送邮箱验证码
 func SendMailCode(mail string) error {
 	e := email.NewEmail()
-	e.From = "Light Cloud <xxxx@xxx.com>"
+	e.From = "Light Cloud <" + define.MailUsername + ">"
 	e.To = []string{mail}
 	e.Subject = "👏欢迎使用Light Cloud"
 	e.HTML = []byte("您的验证码为：<h1>" + GenValidateCode() + ", 请确保是本人操作，请勿泄漏您的验证码</h1>")
-	err := e.SendWithTLS("smtp.163.com:465", smtp.PlainAuth("", "xxxx@xxx.com", "你的授权码", "smtp.163.com"),
+	err := e.SendWithTLS("smtp.163.com:465", smtp.PlainAuth("", define.MailUsername, define.MailPassword, "smtp.163.com"),
 		&tls.Config{InsecureSkipVerify: true, ServerName: "smtp.163.com"},
 	)
 	if err != nil {

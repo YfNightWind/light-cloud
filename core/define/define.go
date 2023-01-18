@@ -10,4 +10,9 @@ type UserClaim struct {
 }
 
 // JwtSignature jwt签名
-var JwtSignature = "This is Light-Cloud's unique Signature-By Lin Yuhong"
+var JwtSignature = "你的JWT签名"
+
+var (
+	MailUsername = "你发送的邮箱"
+	MailPassword = "你邮箱的授权码"
+)
