@@ -1,12 +1,18 @@
 package model
 
 import (
+	"github.com/go-redis/redis/v9"
 	_ "github.com/go-sql-driver/mysql"
+	"light-cloud/src/core/define"
 	"log"
 	"xorm.io/xorm"
 )
 
+// Engine 初始化数据库
 var Engine = Init()
+
+// RDB 初始化Redis
+var RDB = InitRedis()
 
 // Init 初始化 Xorm创建Engine，连接数据库
 func Init() *xorm.Engine {
@@ -18,4 +24,13 @@ func Init() *xorm.Engine {
 	}
 
 	return engine
+}
+
+// InitRedis 初始化Redis
+func InitRedis() *redis.Client {
+	return redis.NewClient(&redis.Options{
+		Addr:     define.RedisAddress,
+		Password: define.RedisPassword,
+		DB:       0, // use default DB
+	})
 }
