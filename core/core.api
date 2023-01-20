@@ -3,6 +3,10 @@ service core-api {
 	@handler UserLogin
 	post /user/login (LoginRequest) returns (LoginResponse)
 	
+	// 用户注册
+	@handler UserRegister
+	post /user/register (UserRegisterRequest) returns (UserRegisterResponse)
+	
 	// 用户详细
 	@handler UserDetail
 	get /user/detail (UserDetailRequest) returns (UserDetailResponse)
@@ -10,6 +14,16 @@ service core-api {
 	// 验证码发送
 	@handler MailCodeSendRegister
 	post /mail/code/send/register (MailCodeSendRequest) returns (MailCodeSendResponse)
+}
+
+type UserRegisterRequest {
+	Name     string `json:"name"`     // 用户名
+	Password string `json:"password"` // 密码
+	Email    string `json:"email""`   // 邮箱
+	Code     string `json:"code"`     // 验证码
+}
+
+type UserRegisterResponse {
 }
 
 type LoginRequest {
