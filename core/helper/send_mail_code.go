@@ -12,12 +12,12 @@ import (
 )
 
 // SendMailCode 发送邮箱验证码
-func SendMailCode(mail string) error {
+func SendMailCode(mail string, code string) error {
 	e := email.NewEmail()
 	e.From = "Light Cloud <" + define.MailUsername + ">"
 	e.To = []string{mail}
 	e.Subject = "👏欢迎使用Light Cloud"
-	e.HTML = []byte("您的验证码为：<h1>" + GenValidateCode() + ", 请确保是本人操作，请勿泄漏您的验证码</h1>")
+	e.HTML = []byte("您的验证码为：<h1>" + code + "</h1>" + "\n有效时间为5分钟，请确保是本人操作，请勿泄漏您的验证码")
 	err := e.SendWithTLS("smtp.163.com:465", smtp.PlainAuth("", define.MailUsername, define.MailPassword, "smtp.163.com"),
 		&tls.Config{InsecureSkipVerify: true, ServerName: "smtp.163.com"},
 	)
@@ -35,7 +35,7 @@ func GenValidateCode() string {
 	rand.Seed(time.Now().UnixNano())
 
 	var sb strings.Builder
-	for i := 0; i < 8; i++ {
+	for i := 0; i < define.CodeLength; i++ {
 		_, err := fmt.Fprintf(&sb, "%d", numeric[rand.Intn(r)])
 		if err != nil {
 			return ""
