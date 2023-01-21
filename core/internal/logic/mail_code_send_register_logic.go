@@ -30,7 +30,7 @@ func NewMailCodeSendRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContex
 
 func (l *MailCodeSendRegisterLogic) MailCodeSendRegister(req *types.MailCodeSendRequest) (resp *types.MailCodeSendResponse, err error) {
 	// 若该邮箱未注册
-	count, err := model.Init().Where("email = ? ", req.Email).Table(model.UserInfo{}).Count()
+	count, err := l.svcCtx.Engine.Where("email = ? ", req.Email).Table(model.UserInfo{}).Count()
 	if err != nil {
 		return
 	}
@@ -43,7 +43,7 @@ func (l *MailCodeSendRegisterLogic) MailCodeSendRegister(req *types.MailCodeSend
 	// 获取验证码
 	code := helper.GenValidateCode()
 	// 存储验证码Redis
-	model.RDB.Set(l.ctx, req.Email, code, time.Second*time.Duration(define.ExpireTime))
+	l.svcCtx.RDB.Set(l.ctx, req.Email, code, time.Second*time.Duration(define.ExpireTime))
 
 	// 发送验证码
 	err = helper.SendMailCode(req.Email, code)
