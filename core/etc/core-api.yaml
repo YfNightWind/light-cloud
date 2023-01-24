@@ -8,3 +8,6 @@ MySQL:
 Redis:
   Address:
   Password:
+
+MaxBytes: 8388608
+Timeout: 60000
