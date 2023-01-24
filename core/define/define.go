@@ -9,6 +9,9 @@ type UserClaim struct {
 	jwt.RegisteredClaims
 }
 
+// DataSourceName MySQL datasource name
+var DataSourceName = ""
+
 // JwtSignature jwt签名
 var JwtSignature = "你的JWT签名"
 
@@ -28,4 +31,12 @@ var (
 var (
 	RedisAddress  = "你的redis地址"
 	RedisPassword = "你的redis密码，没有就空着"
+)
+
+// COS七牛云相关
+var (
+	AccessKey   = ""
+	SecretKey   = ""
+	Bucket      = ""
+	QiNiuServer = ""
 )
