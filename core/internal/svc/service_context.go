@@ -2,7 +2,9 @@ package svc
 
 import (
 	"github.com/go-redis/redis/v9"
+	"github.com/zeromicro/go-zero/rest"
 	"light-cloud/src/core/internal/config"
+	"light-cloud/src/core/internal/middleware"
 	"light-cloud/src/core/model"
 	"xorm.io/xorm"
 )
@@ -11,6 +13,7 @@ type ServiceContext struct {
 	Config config.Config
 	Engine *xorm.Engine
 	RDB    *redis.Client
+	Auth   rest.Middleware
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -18,5 +21,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Config: c,
 		Engine: model.Init(c.MySQL.DataSourceName),
 		RDB:    model.InitRedis(c),
+		Auth:   middleware.NewAuthMiddleware().Handle,
 	}
 }
