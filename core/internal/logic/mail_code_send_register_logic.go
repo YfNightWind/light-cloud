@@ -30,7 +30,7 @@ func NewMailCodeSendRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContex
 
 func (l *MailCodeSendRegisterLogic) MailCodeSendRegister(req *types.MailCodeSendRequest) (resp *types.MailCodeSendResponse, err error) {
 	// 若该邮箱未注册
-	count, err := l.svcCtx.Engine.Where("email = ? ", req.Email).Table(model.UserInfo{}).Count()
+	count, err := l.svcCtx.SQL.Where("email = ? ", req.Email).Table(model.UserInfo{}).Count()
 	if err != nil {
 		return
 	}

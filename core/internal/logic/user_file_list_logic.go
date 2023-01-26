@@ -43,9 +43,9 @@ func (l *UserFileListLogic) UserFileList(req *types.UserFileListRequest, userIde
 	offset := (page - 1) * size
 
 	// 查询用户文件列表
-	err = l.svcCtx.Engine.
+	err = l.svcCtx.SQL.
 		Table("user_repository").
-		Where("user_identity = ?", req.Id, userIdentity).
+		Where("parent_id = ? AND user_identity = ?", req.Id, userIdentity).
 		Select("user_repository.id, user_repository.identity, user_repository.repository_identity, user_repository.ext, "+
 			"user_repository.name, repository_pool.path, repository_pool.size").
 		Join("LEFT", "repository_pool", "user_repository.repository_identity = repository_pool.identity").
@@ -56,7 +56,7 @@ func (l *UserFileListLogic) UserFileList(req *types.UserFileListRequest, userIde
 	}
 
 	// 查询总数
-	count, err := l.svcCtx.Engine.
+	count, err := l.svcCtx.SQL.
 		Where("parent_id = ? AND user_identity = ? ", req.Id, userIdentity).Count(new(model.UserRepository))
 	if err != nil {
 		return

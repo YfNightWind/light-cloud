@@ -35,7 +35,7 @@ func (l *FileUploadLogic) FileUpload(req *types.FileUploadRequest) (resp *types.
 		Path:     req.Path,
 	}
 
-	_, err = l.svcCtx.Engine.Insert(rp)
+	_, err = l.svcCtx.SQL.Insert(rp)
 	if err != nil {
 		return nil, err
 	}

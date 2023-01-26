@@ -39,7 +39,7 @@ func (l *UserRegisterLogic) UserRegister(req *types.UserRegisterRequest) (resp *
 	}
 
 	// 判断用户名是否已存在
-	count, err := l.svcCtx.Engine.Where("name = ? ", req.Name).Count(new(model.UserInfo))
+	count, err := l.svcCtx.SQL.Where("name = ? ", req.Name).Count(new(model.UserInfo))
 	if err != nil {
 		return nil, err
 	}
@@ -55,7 +55,7 @@ func (l *UserRegisterLogic) UserRegister(req *types.UserRegisterRequest) (resp *
 		Password: helper.Md5(req.Password),
 		Email:    req.Email,
 	}
-	n, err := l.svcCtx.Engine.Insert(user)
+	n, err := l.svcCtx.SQL.Insert(user)
 	if err != nil {
 		return nil, err
 	}

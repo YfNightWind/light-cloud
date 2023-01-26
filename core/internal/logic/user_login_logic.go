@@ -29,7 +29,7 @@ func NewUserLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserLog
 func (l *UserLoginLogic) UserLogin(req *types.LoginRequest) (resp *types.LoginResponse, err error) {
 	// 从数据库中查询当前用户
 	user := new(model.UserInfo)
-	get, err := l.svcCtx.Engine.Where("name = ? AND password = ? ", req.Name, helper.Md5(req.Password)).Get(user)
+	get, err := l.svcCtx.SQL.Where("name = ? AND password = ? ", req.Name, helper.Md5(req.Password)).Get(user)
 
 	if err != nil {
 		return nil, err

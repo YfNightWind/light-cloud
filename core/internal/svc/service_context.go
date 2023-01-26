@@ -11,7 +11,7 @@ import (
 
 type ServiceContext struct {
 	Config config.Config
-	Engine *xorm.Engine
+	SQL    *xorm.Engine
 	RDB    *redis.Client
 	Auth   rest.Middleware
 }
@@ -19,7 +19,7 @@ type ServiceContext struct {
 func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config: c,
-		Engine: model.Init(c.MySQL.DataSourceName),
+		SQL:    model.Init(c.MySQL.DataSourceName),
 		RDB:    model.InitRedis(c),
 		Auth:   middleware.NewAuthMiddleware().Handle,
 	}

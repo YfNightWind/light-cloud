@@ -33,7 +33,7 @@ func (l *UserRepositorySaveLogic) UserRepositorySave(req *types.UserRepositorySa
 		Ext:                req.Ext,
 		Name:               req.Name,
 	}
-	n, err := l.svcCtx.Engine.Insert(ur)
+	n, err := l.svcCtx.SQL.Insert(ur)
 	if err != nil {
 		return nil, err
 	}

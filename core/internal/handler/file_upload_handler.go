@@ -34,7 +34,7 @@ func FileUploadHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		}
 		hash := fmt.Sprintf("%x", md5.Sum(b)) // 将返回的十六进制转为字符串作为文件的Hash值
 		rp := new(model.RepositoryPool)
-		get, err := svcCtx.Engine.Where("hash = ? ", hash).Get(rp)
+		get, err := svcCtx.SQL.Where("hash = ? ", hash).Get(rp)
 		if err != nil {
 			return
 		}
