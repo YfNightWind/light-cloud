@@ -32,7 +32,18 @@ service core-api {
 	@handler UserFileList
 	get /user/file/list (UserFileListRequest) returns (UserFileListResponse)
 	
+	// 用户文件夹名称更改
+	@handler UserFileNameUpdate
+	post /user/file/name/update (UserFileNameUpdateRequest) returns (UserFileNameUpdateResponse)
+	
 }
+
+type UserFileNameUpdateRequest {
+	Identity string `json:"identity"`
+	Name     string `json:"name"`
+}
+
+type UserFileNameUpdateResponse {}
 
 type UserFileListRequest {
 	Id   int64 `json:"id,optional"`
