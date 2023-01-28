@@ -6,6 +6,7 @@ import (
 	"light-cloud/src/core/internal/svc"
 	"light-cloud/src/core/internal/types"
 	"light-cloud/src/core/model"
+	"time"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -43,12 +44,14 @@ func (l *UserFileListLogic) UserFileList(req *types.UserFileListRequest, userIde
 	offset := (page - 1) * size
 
 	// 查询用户文件列表
+	//l.svcCtx.SQL.ShowSQL(true)
 	err = l.svcCtx.SQL.
 		Table("user_repository").
 		Where("parent_id = ? AND user_identity = ?", req.Id, userIdentity).
 		Select("user_repository.id, user_repository.identity, user_repository.repository_identity, user_repository.ext, "+
 			"user_repository.name, repository_pool.path, repository_pool.size").
 		Join("LEFT", "repository_pool", "user_repository.repository_identity = repository_pool.identity").
+		Where("user_repository.deleted_at = ? OR user_repository.deleted_at IS NULL", time.Time{}.Format(define.Datetime)).
 		Limit(size, offset).
 		Find(&userFile)
 	if err != nil {
