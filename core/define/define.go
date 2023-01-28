@@ -40,3 +40,9 @@ var (
 	Bucket      = ""
 	QiNiuServer = ""
 )
+
+// PageSize 分页的默认参数
+var PageSize = 20
+
+// Datetime 时间格式化
+var Datetime = "2006-01-02 15:04:05"
