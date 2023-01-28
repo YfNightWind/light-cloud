@@ -43,6 +43,19 @@ service core-api {
 	// 用户-文件删除
 	@handler UserFileDelete
 	delete /user/file/delete(UserFileDeleteRequest) returns (UserFileDeleteResponse)
+	
+	// 用户 - 文件移动
+	@handler UserFileMove
+	put /user/file/move(UserFileMoveRequest) returns (UserFileMoveResponse)
+}
+
+type UserFileMoveRequest {
+	Identity       string `json:"identity"`
+	ParentIdentity string `json:"parent_identity"`
+}
+
+type UserFileMoveResponse {
+	Msg string `json:"msg"`
 }
 
 type UserFileDeleteRequest {
