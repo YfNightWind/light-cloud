@@ -39,6 +39,18 @@ service core-api {
 	// 用户-文件夹创建
 	@handler UserFolderCreate
 	post /user/folder/create (UserFolderCreateRequest) returns (UserFolderCreateResponse)
+	
+	// 用户-文件删除
+	@handler UserFileDelete
+	delete /user/file/delete(UserFileDeleteRequest) returns (UserFileDeleteResponse)
+}
+
+type UserFileDeleteRequest {
+	Identity string `json:"identity"`
+}
+
+type UserFileDeleteResponse {
+	Msg string `json:"msg"`
 }
 
 type UserFolderCreateRequest {
@@ -49,7 +61,6 @@ type UserFolderCreateRequest {
 type UserFolderCreateResponse {
 	Identity string `json:"identity"`
 	Msg      string `json:"msg"`
-	Code     int    `json:"code"`
 }
 
 type UserFileNameUpdateRequest {
@@ -123,6 +134,22 @@ type FileUploadResponse {
 	Name     string `json:"name"`
 }
 
+type UserDetailRequest {
+	Identity string `json:"identity""`
+}
+
+type UserDetailResponse {
+	Name  string `json:"name"`
+	Email string `json:"Email"`
+}
+
+type MailCodeSendRequest {
+	Email string `json:"email"`
+}
+
+type MailCodeSendResponse {
+}
+
 type UserRegisterRequest {
 	Name     string `json:"name"`     // 用户名
 	Password string `json:"password"` // 密码
@@ -140,20 +167,5 @@ type LoginRequest {
 
 type LoginResponse {
 	Token string `json:"token"`
-}
-
-type UserDetailRequest {
-	Identity string `json:"identity""`
-}
-
-type UserDetailResponse {
-	Name  string `json:"name"`
-	Email string `json:"Email"`
-}
-
-type MailCodeSendRequest {
-	Email string `json:"email"`
-}
-
-type MailCodeSendResponse {
+	Msg   string `json:"msg"`
 }
