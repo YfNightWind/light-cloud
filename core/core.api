@@ -47,6 +47,20 @@ service core-api {
 	// 用户 - 文件移动
 	@handler UserFileMove
 	put /user/file/move(UserFileMoveRequest) returns (UserFileMoveResponse)
+	
+	// 分享 - 创建分享记录
+	@handler ShareBasicCreate
+	post /share/basic/create (ShareBasicCreateRequest) returns (ShareBasicCreateResponse)
+}
+
+type ShareBasicCreateRequest {
+	RepositoryIdentity string `json:"repository_identity"`
+	ExpiredTime        int    `json:"expired_time"`
+}
+
+type ShareBasicCreateResponse {
+	Identity string `json:"identity"`
+	Msg      string `json:"msg"`
 }
 
 type UserFileMoveRequest {
