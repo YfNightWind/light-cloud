@@ -1,12 +1,14 @@
 package define
 
-import "github.com/golang-jwt/jwt/v4"
+import (
+	"github.com/dgrijalva/jwt-go"
+)
 
 type UserClaim struct {
 	Id       int
 	Identity string
 	Name     string
-	jwt.RegisteredClaims
+	jwt.StandardClaims
 }
 
 // DataSourceName MySQL datasource name
@@ -45,3 +47,6 @@ var PageSize = 20
 
 // Datetime 时间格式化
 var Datetime = "2006-01-02 15:04:05"
+
+var TokenExpire = 60 * 60 * 24 * 3        // 3 days
+var RefreshTokenExpire = 60 * 60 * 24 * 7 // 7 days

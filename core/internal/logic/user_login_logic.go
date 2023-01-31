@@ -2,7 +2,7 @@ package logic
 
 import (
 	"context"
-	"errors"
+	"light-cloud/src/core/define"
 	"light-cloud/src/core/helper"
 	"light-cloud/src/core/model"
 
@@ -27,8 +27,19 @@ func NewUserLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserLog
 }
 
 func (l *UserLoginLogic) UserLogin(req *types.LoginRequest) (resp *types.LoginResponse, err error) {
+	resp = new(types.LoginResponse)
+
 	// 从数据库中查询当前用户
 	user := new(model.UserInfo)
+	if len(req.Name) < 6 {
+		resp.Msg = "用户名长度不能小于6位"
+		return
+	}
+	if len(req.Password) < 6 {
+		resp.Msg = "密码长度不能小于6位"
+		return
+	}
+
 	get, err := l.svcCtx.SQL.Where("name = ? AND password = ? ", req.Name, helper.Md5(req.Password)).Get(user)
 
 	if err != nil {
@@ -36,16 +47,28 @@ func (l *UserLoginLogic) UserLogin(req *types.LoginRequest) (resp *types.LoginRe
 	}
 
 	if !get {
-		return nil, errors.New("用户名或密码错误！")
+		resp.Msg = "用户名或密码错误"
+		return
 	}
 
-	// 返回token
-	token, err := helper.GenerateToken(user.Id, user.Identity, user.Name)
+	// 生成普通 token1
+	token, err := helper.GenerateToken(user.Id, user.Identity, user.Name, define.TokenExpire)
 	if err != nil {
-		return nil, err
+		resp.Msg = "生成token失败"
+		return
 	}
 
-	resp = new(types.LoginResponse)
+	// 生成用于刷新 token1 的 token2
+	// 当 token1 失效后，使用 token2 生成新 token1
+	refreshToken, err := helper.GenerateToken(user.Id, user.Identity, user.Name, define.RefreshTokenExpire)
+	if err != nil {
+		resp.Msg = "生成token失败"
+		return
+	}
+
 	resp.Token = token
+	resp.RefreshToken = refreshToken
+	resp.Msg = "用户登录成功"
+
 	return
 }

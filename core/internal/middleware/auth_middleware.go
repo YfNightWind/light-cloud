@@ -33,7 +33,7 @@ func (m *AuthMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 			return
 		}
 		// 一切成功，将基础信息写入请求头，便于调取
-		r.Header.Set("UserId", userClaim.ID)
+		r.Header.Set("UserId", string(rune(userClaim.Id)))
 		r.Header.Set("UserIdentity", userClaim.Identity)
 		r.Header.Set("UserName", userClaim.Name)
 		next(w, r)
