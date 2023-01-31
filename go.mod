@@ -14,8 +14,13 @@ require (
 )
 
 require (
+	github.com/clbanning/mxj v1.8.4 // indirect
 	github.com/felixge/fgprof v0.9.3 // indirect
+	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/google/pprof v0.0.0-20211214055906-6f57359322fd // indirect
+	github.com/mitchellh/mapstructure v1.5.0 // indirect
+	github.com/mozillazg/go-httpheader v0.3.1 // indirect
+	github.com/tencentyun/cos-go-sdk-v5 v0.7.41 // indirect
 	golang.org/x/sync v0.1.0 // indirect
 )
 

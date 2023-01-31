@@ -33,12 +33,11 @@ var (
 	RedisPassword = "你的redis密码，没有就空着"
 )
 
-// COS七牛云相关
+// 腾讯云对象存储
 var (
-	AccessKey   = ""
-	SecretKey   = ""
-	Bucket      = ""
-	QiNiuServer = ""
+	TencentSecretKey = ""
+	TencentSecretID  = ""
+	CosBucket        = ""
 )
 
 // PageSize 分页的默认参数
