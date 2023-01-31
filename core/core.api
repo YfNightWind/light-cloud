@@ -2,19 +2,19 @@ service core-api {
 	//用户登录
 	@handler UserLogin
 	post /user/login (LoginRequest) returns (LoginResponse)
-	
+
 	// 用户注册
 	@handler UserRegister
 	post /user/register (UserRegisterRequest) returns (UserRegisterResponse)
-	
+
 	// 用户详细
 	@handler UserDetail
 	get /user/detail (UserDetailRequest) returns (UserDetailResponse)
-	
+
 	// 验证码发送
 	@handler MailCodeSendRegister
 	post /mail/code/send/register (MailCodeSendRequest) returns (MailCodeSendResponse)
-	
+
 	// 获取分享资源详情
 	@handler ShareBasicDetail
 	post /share/basic/detail (ShareBasicDetailRequest) returns (ShareBasicDetailResponse)
@@ -27,34 +27,49 @@ service core-api {
 	// 文件上传
 	@handler FileUpload
 	post /file/upload (FileUploadRequest) returns (FileUploadResponse)
-	
+
 	// 用户关联存储
 	@handler UserRepositorySave
 	post /user/repository/save (UserRepositorySaveRequest) returns (UserRepositorySaveResponse)
-	
+
 	// 用户文件列表
 	@handler UserFileList
 	get /user/file/list (UserFileListRequest) returns (UserFileListResponse)
-	
+
 	// 用户文件夹名称更改
 	@handler UserFileNameUpdate
 	post /user/file/name/update (UserFileNameUpdateRequest) returns (UserFileNameUpdateResponse)
-	
+
 	// 用户-文件夹创建
 	@handler UserFolderCreate
 	post /user/folder/create (UserFolderCreateRequest) returns (UserFolderCreateResponse)
-	
+
 	// 用户-文件删除
 	@handler UserFileDelete
 	delete /user/file/delete(UserFileDeleteRequest) returns (UserFileDeleteResponse)
-	
+
 	// 用户 - 文件移动
 	@handler UserFileMove
 	put /user/file/move(UserFileMoveRequest) returns (UserFileMoveResponse)
-	
+
 	// 分享 - 创建分享记录
 	@handler ShareBasicCreate
 	post /share/basic/create (ShareBasicCreateRequest) returns (ShareBasicCreateResponse)
+
+	// 分享 - 分享资源保存
+	@handler ShareBasicSave
+	post /share/basic/save (ShareBasicSaveRequest) returns (ShareBasicSaveResponse)
+}
+
+type ShareBasicSaveRequest {
+	RepositoryIdentity string `json:"repository_identity"`
+	ParentId           int64  `json:"parent_id"`
+}
+
+type ShareBasicSaveResponse {
+	Identity string `json:"identity"`
+	Msg      string `json:"msg"`
+	Code     int    `json:"code"`
 }
 
 type ShareBasicDetailRequest {
@@ -210,6 +225,9 @@ type LoginRequest {
 }
 
 type LoginResponse {
-	Token string `json:"token"`
-	Msg   string `json:"msg"`
+	Token        string `json:"token"`
+	RefreshToken string `json:"refresh_token"`
+	Msg          string `json:"msg"`
+	Code         int    `json:"code"`
+
 }
