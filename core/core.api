@@ -63,6 +63,24 @@ service core-api {
 	// 刷新token
 	@handler RefreshAuthorization
 	post /refresh/authorization (RefreshAuthorizationRequest) returns (RefreshAuthorizationResponse)
+	
+	// 文件上传前基本信息处理
+	@handler FileUploadPrepare
+	post /file/upload/prepare (FileUploadPrepareRequest) returns (FileUploadPrepareResponse)
+}
+
+type FileUploadPrepareRequest {
+	Md5  string `json:"md5"`
+	Name string `json:"name"`
+	Ext  string `json:"ext"`
+}
+
+type FileUploadPrepareResponse {
+	Identity string `json:"identity"`
+	UploadId string `json:"upload_id"`
+	Key      string `json:"key"`
+	Msg      string `json:"msg"`
+	Code     int    `json:"code"`
 }
 
 type RefreshAuthorizationRequest {
