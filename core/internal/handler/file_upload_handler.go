@@ -47,7 +47,7 @@ func FileUploadHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		// 如果不存在，往七牛云中存储
+		// 如果不存在，往腾讯云中存储
 		url, err := helper.CosUpload(r)
 		if err != nil {
 			return

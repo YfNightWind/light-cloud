@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"light-cloud/src/core/helper"
 	"light-cloud/src/core/model"
 
 	"light-cloud/src/core/internal/svc"
@@ -36,7 +37,19 @@ func (l *FileUploadPrepareLogic) FileUploadPrepare(req *types.FileUploadPrepareR
 	if get {
 		// 文件存在，秒传成功
 		resp.Identity = rp.Identity
+		resp.Msg = "秒传成功"
+	} else {
+		// 获取文件的 UploadID 和 key 进行COS文件分片上传
+		key, uploadID, err := helper.CosInitPart(req.Ext)
+		if err != nil {
+			resp.Msg = "error"
+			return resp, err
+		}
+		resp.UploadId = uploadID
+		resp.Key = key
+		resp.Code = 200
+		resp.Msg = "success"
 	}
-	resp.Msg = "success"
+
 	return
 }

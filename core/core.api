@@ -67,6 +67,45 @@ service core-api {
 	// 文件上传前基本信息处理
 	@handler FileUploadPrepare
 	post /file/upload/prepare (FileUploadPrepareRequest) returns (FileUploadPrepareResponse)
+	
+	// 文件分片上传
+	@handler FileUploadChunk
+	post /file/upload/chunk (FileUploadChunkRequest) returns (FileUploadChunkResponse)
+	
+	// 文件分片上传完成
+	@handler FileUploadChunkComplete
+	post /file/upload/chunk/complete (FileUploadChunkCompleteRequest) returns (FileUploadChunkCompleteResponse)
+	
+}
+
+type FileUploadChunkCompleteRequest {
+	Key        string      `json:"key"`
+	UploadId   string      `json:"upload_id"`
+	CosObjects []CosObject `json:"cos_objects"`
+}
+
+type CosObject {
+	PartNumber int    `json:"part_number"`
+	Etag       string `json:"etag"`
+}
+
+type FileUploadChunkCompleteResponse {
+	Msg  string `json:"msg"`
+	Code int    `json:"code"`
+}
+
+// 使用FormData传参
+type FileUploadChunkRequest {
+	// key
+	// upload_id
+	// part_number
+	// 文件
+}
+
+type FileUploadChunkResponse {
+	Etag string `json:"etag"` // md5
+	Msg  string `json:"msg"`
+	Code int    `json:"code"`
 }
 
 type FileUploadPrepareRequest {
