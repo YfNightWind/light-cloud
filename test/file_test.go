@@ -16,14 +16,14 @@ const chunkSize = 100 * 1024 * 1024 // 100MB 测试用
 
 // 文件分片
 func TestGenerateChunkFile(t *testing.T) {
-	fileInfo, err := os.Stat("test.mp4")
+	fileInfo, err := os.Stat("./image/motorcycle.svg")
 	if err != nil {
 		t.Fatal(err)
 	}
 	// 分片的个数
 	// 数据应向上取整，否则会出现缺失分片
 	chunkNum := math.Ceil(float64(fileInfo.Size()) / float64(chunkSize))
-	myFile, err := os.OpenFile("test.mp4", os.O_RDONLY, 0666)
+	myFile, err := os.OpenFile("./image/motorcycle.svg", os.O_RDONLY, 0666)
 	if err != nil {
 		t.Fatal(err)
 	}
