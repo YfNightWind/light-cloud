@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 	"errors"
+	"light-cloud/src/core/helper"
 	"light-cloud/src/core/model"
 
 	"light-cloud/src/core/internal/svc"
@@ -25,11 +26,17 @@ func NewUserDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserDe
 	}
 }
 
-func (l *UserDetailLogic) UserDetail(req *types.UserDetailRequest) (resp *types.UserDetailResponse, err error) {
+func (l *UserDetailLogic) UserDetail(req *types.UserDetailRequest, authorization string) (resp *types.UserDetailResponse, err error) {
 	resp = &types.UserDetailResponse{}
 	userInfo := new(model.UserInfo)
 
-	get, err := l.svcCtx.SQL.Where("identity = ? ", req.Identity).Get(userInfo)
+	userClaim, err := helper.AnalyzeToken(authorization)
+
+	if err != nil {
+		resp.Msg = "expired token"
+		return
+	}
+	get, err := l.svcCtx.SQL.Where("name = ? ", userClaim.Name).Get(userInfo)
 
 	if err != nil {
 		return nil, err
@@ -42,6 +49,11 @@ func (l *UserDetailLogic) UserDetail(req *types.UserDetailRequest) (resp *types.
 	// 如果存在
 	resp.Name = userInfo.Name
 	resp.Email = userInfo.Email
+	resp.Identity = userInfo.Identity
+	resp.Avatar = userInfo.Avatar
+	resp.Capacity = userInfo.Capacity
+	resp.CreatedAt = userInfo.CreatedAt.String()
+	resp.Msg = "success"
 
 	return
 }

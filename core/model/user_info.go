@@ -8,6 +8,8 @@ type UserInfo struct {
 	Name      string
 	Password  string
 	Email     string
+	Avatar    string
+	Capacity  int
 	CreatedAt time.Time `xorm:"created"`
 	UpdatedAt time.Time `xorm:"updated"`
 	DeletedAt time.Time `xorm:"deleted"`

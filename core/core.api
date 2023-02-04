@@ -265,12 +265,17 @@ type FileUploadResponse {
 }
 
 type UserDetailRequest {
-	Identity string `json:"identity""`
 }
 
 type UserDetailResponse {
-	Name  string `json:"name"`
-	Email string `json:"Email"`
+	Name      string `json:"name"`
+	Email     string `json:"Email"`
+	Avatar    string `json:"avatar"`
+	Msg       string `json:"msg"`
+	Identity  string `json:"identity"`
+	Capacity  int    `json:"capacity"`
+	Code      int    `json:"code"`
+	CreatedAt string `json:"created_at"`
 }
 
 type MailCodeSendRequest {
