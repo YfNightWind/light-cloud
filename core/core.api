@@ -18,6 +18,10 @@ service core-api {
 	// 获取分享资源详情
 	@handler ShareBasicDetail
 	post /share/basic/detail (ShareBasicDetailRequest) returns (ShareBasicDetailResponse)
+	
+	// 注册量
+	@handler RegisterCount
+	get /register/count (RegisterCountRequest) returns (RegisterCountResponse)
 }
 
 @server(
@@ -80,6 +84,14 @@ service core-api {
 	@handler FileUploadChunkComplete
 	post /file/upload/chunk/complete (FileUploadChunkCompleteRequest) returns (FileUploadChunkCompleteResponse)
 	
+}
+
+type RegisterCountRequest {}
+
+type RegisterCountResponse {
+	Count int64  `json:"count"`
+	Msg   string `json:"msg"`
+	Code  int    `json:"code"`
 }
 
 type UserUpdateRequest {
