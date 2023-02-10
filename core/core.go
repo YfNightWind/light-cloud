@@ -3,10 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
-
 	"light-cloud/src/core/internal/config"
 	"light-cloud/src/core/internal/handler"
 	"light-cloud/src/core/internal/svc"
+	"net/http"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
@@ -20,7 +20,15 @@ func main() {
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
 
-	server := rest.MustNewServer(c.RestConf)
+	server := rest.MustNewServer(c.RestConf, rest.WithCustomCors(
+		// 设置 header
+		func(header http.Header) {
+			header.Set("Access-Control-Allow-Origin", "*")
+		},
+		nil,
+		// 允许跨域地址
+		"*",
+	))
 	defer server.Stop()
 
 	ctx := svc.NewServiceContext(c)
