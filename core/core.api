@@ -19,6 +19,10 @@ service core-api {
 	@handler ShareBasicDetail
 	post /share/basic/detail (ShareBasicDetailRequest) returns (ShareBasicDetailResponse)
 	
+	// 分享统计
+	@handler ShareStatistics
+	get /share/statistics (ShareStatisticsRequest) returns (ShareStatisticsResponse)
+	
 	// 注册量
 	@handler RegisterCount
 	get /register/count (RegisterCountRequest) returns (RegisterCountResponse)
@@ -84,6 +88,15 @@ service core-api {
 	@handler FileUploadChunkComplete
 	post /file/upload/chunk/complete (FileUploadChunkCompleteRequest) returns (FileUploadChunkCompleteResponse)
 	
+}
+
+type ShareStatisticsRequest {}
+
+type ShareStatisticsResponse {
+	ShareCount int    `json:"share_count"`
+	ClickNum   int    `json:"click_num"`
+	Msg        string `json:"msg"`
+	Code       int    `json:"code"`
 }
 
 type RegisterCountRequest {}
