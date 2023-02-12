@@ -24,6 +24,7 @@ func main() {
 		// 设置 header
 		func(header http.Header) {
 			header.Set("Access-Control-Allow-Origin", "*")
+			header.Set("Access-Control-Allow-Headers", "*")
 		},
 		nil,
 		// 允许跨域地址
