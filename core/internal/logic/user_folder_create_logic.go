@@ -27,15 +27,22 @@ func NewUserFolderCreateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *UserFolderCreateLogic) UserFolderCreate(req *types.UserFolderCreateRequest, userIdentity string) (resp *types.UserFolderCreateResponse, err error) {
+	resp = new(types.UserFolderCreateResponse)
+	if req.Name == "" {
+		err = errors.New("name is empty")
+		return
+	}
 	// 判断该名称在当前文件夹下是否存在
 	count, err := l.svcCtx.SQL.
-		Where("name = ? AND parent_id = ?", req.Name, req.ParentId).
+		Where("name = ? AND parent_id = ? AND user_identity = ? AND deleted_at IS NULL", req.Name, req.ParentId, userIdentity).
 		Count(new(model.UserRepository))
 	if err != nil {
-		return nil, err
+		resp.Msg = "error"
+		return
 	}
 	if count > 0 {
-		return nil, errors.New("该名称已存在")
+		resp.Msg = "exits"
+		return
 	}
 
 	// 创建文件夹
@@ -50,5 +57,6 @@ func (l *UserFolderCreateLogic) UserFolderCreate(req *types.UserFolderCreateRequ
 		resp.Msg = "error"
 		return
 	}
+	resp.Msg = "success"
 	return
 }
