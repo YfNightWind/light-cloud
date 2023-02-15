@@ -47,6 +47,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/register/count",
 				Handler: RegisterCountHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/popular/share/list",
+				Handler: PopularShareListHandler(serverCtx),
+			},
 		},
 	)
 
