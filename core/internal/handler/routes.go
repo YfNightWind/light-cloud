@@ -52,6 +52,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/popular/share/list",
 				Handler: PopularShareListHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/public/file/list",
+				Handler: PublicFileListHandler(serverCtx),
+			},
 		},
 	)
 
