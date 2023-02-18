@@ -6,7 +6,7 @@ type PublicRepository struct {
 	Id                 int
 	Identity           string
 	UserIdentity       string
-	ParentId           int
+	ParentId           int64
 	RepositoryIdentity string
 	Ext                string
 	Name               string
