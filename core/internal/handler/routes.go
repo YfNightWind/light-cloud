@@ -154,6 +154,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/public/file/delete",
 					Handler: PublicFileDeleteHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/file/download",
+					Handler: FileDownloadHandler(serverCtx),
+				},
 			}...,
 		),
 	)
