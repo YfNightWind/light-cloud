@@ -1,0 +1,51 @@
+type UserRegisterRequest {
+	Name     string `json:"name"`     // 用户名
+	Password string `json:"password"` // 密码
+	Email    string `json:"email""`   // 邮箱
+	Code     string `json:"code"`     // 验证码
+}
+
+type UserRegisterResponse {
+	Msg  string `json:"msg"`
+	Code int    `json:"code"`
+}
+
+type LoginRequest {
+	Name     string `json:"name"`
+	Password string `json:"password"`
+}
+
+type LoginResponse {
+	Token        string `json:"token"`
+	RefreshToken string `json:"refresh_token"`
+	Msg          string `json:"msg"`
+	Code         int    `json:"code"`
+}
+
+type UserDetailRequest {
+}
+
+type UserDetailResponse {
+	Name      string `json:"name"`
+	Email     string `json:"Email"`
+	Avatar    string `json:"avatar"`
+	Msg       string `json:"msg"`
+	Identity  string `json:"identity"`
+	Capacity  int    `json:"capacity"`
+	Code      int    `json:"code"`
+	CreatedAt string `json:"created_at"`
+}
+
+service user-api {
+	//用户登录
+	@handler UserLogin
+	post /user/login (LoginRequest) returns (LoginResponse)
+	
+	// 用户注册
+	@handler UserRegister
+	post /user/register (UserRegisterRequest) returns (UserRegisterResponse)
+	
+	// 用户详细
+	@handler UserDetail
+	get /user/detail (UserDetailRequest) returns (UserDetailResponse)
+}

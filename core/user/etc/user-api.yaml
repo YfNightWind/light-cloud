@@ -1,0 +1,10 @@
+Name: user-api
+Host: 0.0.0.0
+Port: 14000
+
+MySQL:
+  DataSourceName: root:YfNW01@mysql.@(114.215.209.136)/light-cloud?charset=utf8
+
+Redis:
+  Address: nightwind.top:6379
+  Password: YfNW01@redis.
