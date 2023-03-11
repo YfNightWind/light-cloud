@@ -43,6 +43,7 @@ func FileUploadHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 				Identity: rp.Identity,
 				Ext:      rp.Ext,
 				Name:     rp.Name,
+				Msg:      "success",
 			})
 			return
 		}
@@ -59,6 +60,10 @@ func FileUploadHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		req.Size = fileHeader.Size
 		req.Hash = hash
 		req.Path = url
+
+		if req.Ext == "" {
+			req.Ext = ".unknown"
+		}
 
 		l := logic.NewFileUploadLogic(r.Context(), svcCtx)
 		resp, err := l.FileUpload(&req)

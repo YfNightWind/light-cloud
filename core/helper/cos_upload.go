@@ -13,7 +13,7 @@ import (
 	"strings"
 )
 
-// CosUpload 上传文件到腾讯云
+// CosUpload 上传文件到腾讯云(简单上传)
 func CosUpload(r *http.Request) (string, error) {
 	u, _ := url.Parse(define.CosBucket)
 	b := &cos.BaseURL{BucketURL: u}

@@ -26,6 +26,7 @@ func NewFileUploadLogic(ctx context.Context, svcCtx *svc.ServiceContext) *FileUp
 }
 
 func (l *FileUploadLogic) FileUpload(req *types.FileUploadRequest) (resp *types.FileUploadResponse, err error) {
+	resp = new(types.FileUploadResponse)
 	rp := &model.RepositoryPool{
 		Identity: helper.UUID(),
 		Hash:     req.Hash,
@@ -35,14 +36,17 @@ func (l *FileUploadLogic) FileUpload(req *types.FileUploadRequest) (resp *types.
 		Path:     req.Path,
 	}
 
-	_, err = l.svcCtx.SQL.Insert(rp)
+	_, err = l.svcCtx.SQL.
+		Select("identity, name, hash, path, ext, size, created_at, updated_at").
+		Insert(rp)
 	if err != nil {
-		return nil, err
+		resp.Msg = "error"
+		return
 	}
 
-	resp = new(types.FileUploadResponse)
 	resp.Identity = rp.Identity
 	resp.Name = rp.Name
 	resp.Ext = rp.Ext
+	resp.Msg = "success"
 	return
 }

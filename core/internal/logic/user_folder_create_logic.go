@@ -2,7 +2,6 @@ package logic
 
 import (
 	"context"
-	"errors"
 	"light-cloud/src/core/helper"
 	"light-cloud/src/core/model"
 
@@ -29,7 +28,7 @@ func NewUserFolderCreateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 func (l *UserFolderCreateLogic) UserFolderCreate(req *types.UserFolderCreateRequest, userIdentity string) (resp *types.UserFolderCreateResponse, err error) {
 	resp = new(types.UserFolderCreateResponse)
 	if req.Name == "" {
-		err = errors.New("name is empty")
+		resp.Msg = "name is empty"
 		return
 	}
 	// 判断该名称在当前文件夹下是否存在

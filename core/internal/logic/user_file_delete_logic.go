@@ -24,12 +24,14 @@ func NewUserFileDeleteLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Us
 }
 
 func (l *UserFileDeleteLogic) UserFileDelete(req *types.UserFileDeleteRequest, userIdentity string) (resp *types.UserFileDeleteResponse, err error) {
-	_, err = l.svcCtx.SQL.Where("user_identity = ? AND identity = ? ", userIdentity, req.Identity).Delete(new(model.UserRepository))
+	resp = new(types.UserFileDeleteResponse)
+	_, err = l.svcCtx.SQL.
+		Where("user_identity = ? AND identity = ? ", userIdentity, req.Identity).
+		Delete(new(model.UserRepository))
 	if err != nil {
-		resp.Msg = "删除出错"
+		resp.Msg = "error"
 		return
 	}
-	resp = new(types.UserFileDeleteResponse)
-	resp.Msg = "删除成功"
+	resp.Msg = "success"
 	return
 }

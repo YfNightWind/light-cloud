@@ -41,6 +41,8 @@ func (l *ShareBasicSaveLogic) ShareBasicSave(req *types.ShareBasicSaveRequest, u
 		return
 	}
 
+	// TODO 容量不足判断
+
 	// user_repository 资源保存
 	usr := &model.UserRepository{
 		Identity:           helper.UUID(),
