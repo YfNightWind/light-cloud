@@ -3,10 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-
-	"light-cloud/src/core/user/internal/config"
-	"light-cloud/src/core/user/internal/handler"
-	"light-cloud/src/core/user/internal/svc"
+	"light-cloud/src/user/internal/config"
+	"light-cloud/src/user/internal/handler"
+	"light-cloud/src/user/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"

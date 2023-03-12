@@ -5,7 +5,7 @@ import (
 	"light-cloud/src/core/helper"
 	"light-cloud/src/core/internal/svc"
 	"light-cloud/src/core/internal/types"
-	"light-cloud/src/core/model"
+	model2 "light-cloud/src/model"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -27,7 +27,7 @@ func NewShareBasicSaveLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Sh
 func (l *ShareBasicSaveLogic) ShareBasicSave(req *types.ShareBasicSaveRequest, userIdentity string) (resp *types.ShareBasicSaveResponse, err error) {
 	resp = new(types.ShareBasicSaveResponse)
 	// 获取资源详情 from repository_pool
-	rp := new(model.RepositoryPool)
+	rp := new(model2.RepositoryPool)
 	get, err := l.svcCtx.SQL.
 		Table("repository_pool").
 		Where("identity = ?", req.RepositoryIdentity).
@@ -44,7 +44,7 @@ func (l *ShareBasicSaveLogic) ShareBasicSave(req *types.ShareBasicSaveRequest, u
 	// TODO 容量不足判断
 
 	// user_repository 资源保存
-	usr := &model.UserRepository{
+	usr := &model2.UserRepository{
 		Identity:           helper.UUID(),
 		UserIdentity:       userIdentity,
 		ParentId:           req.ParentId,

@@ -3,7 +3,7 @@ package logic
 import (
 	"context"
 	"light-cloud/src/core/helper"
-	"light-cloud/src/core/model"
+	model2 "light-cloud/src/model"
 
 	"light-cloud/src/core/internal/svc"
 	"light-cloud/src/core/internal/types"
@@ -30,7 +30,7 @@ func (l *ShareBasicCreateLogic) ShareBasicCreate(req *types.ShareBasicCreateRequ
 	uuid := helper.UUID()
 
 	// 获取用户池子中文件的identity
-	usr := new(model.UserRepository)
+	usr := new(model2.UserRepository)
 	get, err := l.svcCtx.SQL.Table("user_repository").
 		Where("identity = ? ", req.UserRepositoryIdentity).
 		Get(usr)
@@ -43,7 +43,7 @@ func (l *ShareBasicCreateLogic) ShareBasicCreate(req *types.ShareBasicCreateRequ
 		return
 	}
 
-	data := model.ShareBasic{
+	data := model2.ShareBasic{
 		Identity:               uuid,
 		UserIdentity:           userIdentity,
 		UserRepositoryIdentity: req.UserRepositoryIdentity,

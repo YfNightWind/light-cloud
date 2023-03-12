@@ -6,7 +6,7 @@ import (
 	"light-cloud/src/core/helper"
 	"light-cloud/src/core/internal/svc"
 	"light-cloud/src/core/internal/types"
-	"light-cloud/src/core/model"
+	"light-cloud/src/model"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

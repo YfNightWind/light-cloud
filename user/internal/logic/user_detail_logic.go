@@ -2,9 +2,8 @@ package logic
 
 import (
 	"context"
-
-	"light-cloud/src/core/user/internal/svc"
-	"light-cloud/src/core/user/internal/types"
+	"light-cloud/src/user/internal/svc"
+	"light-cloud/src/user/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

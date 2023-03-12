@@ -4,10 +4,9 @@ import (
 	"context"
 	"light-cloud/src/core/define"
 	"light-cloud/src/core/helper"
-	"light-cloud/src/core/model"
-
-	"light-cloud/src/core/user/internal/svc"
-	"light-cloud/src/core/user/internal/types"
+	"light-cloud/src/model"
+	"light-cloud/src/user/internal/svc"
+	"light-cloud/src/user/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

@@ -2,7 +2,7 @@ package handler
 
 import (
 	"light-cloud/src/core/helper"
-	"light-cloud/src/core/model"
+	"light-cloud/src/model"
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"

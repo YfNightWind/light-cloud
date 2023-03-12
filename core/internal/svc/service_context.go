@@ -5,7 +5,7 @@ import (
 	"github.com/zeromicro/go-zero/rest"
 	"light-cloud/src/core/internal/config"
 	"light-cloud/src/core/internal/middleware"
-	"light-cloud/src/core/model"
+	"light-cloud/src/model"
 	"xorm.io/xorm"
 )
 

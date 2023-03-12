@@ -3,7 +3,7 @@ package logic
 import (
 	"context"
 	"light-cloud/src/core/define"
-	"light-cloud/src/core/model"
+	"light-cloud/src/model"
 	"time"
 
 	"light-cloud/src/core/internal/svc"

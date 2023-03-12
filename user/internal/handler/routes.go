@@ -2,9 +2,8 @@
 package handler
 
 import (
+	"light-cloud/src/user/internal/svc"
 	"net/http"
-
-	"light-cloud/src/core/user/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
 )

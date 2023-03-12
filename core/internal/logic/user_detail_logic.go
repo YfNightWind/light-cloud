@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"light-cloud/src/core/helper"
-	"light-cloud/src/core/model"
+	"light-cloud/src/model"
 
 	"light-cloud/src/core/internal/svc"
 	"light-cloud/src/core/internal/types"
