@@ -80,6 +80,10 @@ service core-api {
 	@handler ShareBasicSave
 	post /share/basic/save (ShareBasicSaveRequest) returns (ShareBasicSaveResponse)
 	
+	// 分享 - 用户分享资源列表
+	@handler UserShareList
+	get /user/share/list (UserShareListRequest) returns (UserShareListResponse)
+	
 	// 刷新token
 	@handler RefreshAuthorization
 	post /refresh/authorization (RefreshAuthorizationRequest) returns (RefreshAuthorizationResponse)
@@ -116,6 +120,14 @@ service core-api {
 	@handler FileDownload
 	post /file/download (FileDownloadRequest) returns (FileDownloadResponse)
 	
+}
+
+type UserShareListRequest {}
+
+type UserShareListResponse {
+	List []*ShareBasicDetailResponse `json:"list"`
+	Msg  string                      `json:"msg"`
+	Code int                         `json:"code"`
 }
 
 type FileDownloadRequest {
@@ -279,22 +291,32 @@ type ShareBasicDetailRequest {
 }
 
 type ShareBasicDetailResponse {
+	Identity           string `json:"identity"`
 	RepositoryIdentity string `json:"repository_identity"`
 	Name               string `json:"name"`
+	Owner              string `json:"owner"`
+	Avatar             string `json:"avatar"`
 	Ext                string `json:"ext"`
 	Size               int64  `json:"size"`
 	Path               string `json:"path"`
 	Msg                string `json:"msg"`
+	Code               int    `json:"code"`
+	ClickNum           int    `json:"click_num"`
+	ExpiredTime        int    `json:"expired_time"`
+	Desc               string `json:"desc"`
+	UpdatedAt          string `json:"updated_at"`
 }
 
 type ShareBasicCreateRequest {
 	UserRepositoryIdentity string `json:"user_repository_identity"`
 	ExpiredTime            int    `json:"expired_time"`
+	Desc                   string `json:"desc"`
 }
 
 type ShareBasicCreateResponse {
 	Identity string `json:"identity"`
 	Msg      string `json:"msg"`
+	Code     int    `json:"code"`
 }
 
 type UserFileMoveRequest {
