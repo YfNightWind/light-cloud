@@ -317,6 +317,8 @@ type MailCodeSendRequest struct {
 }
 
 type MailCodeSendResponse struct {
+	Code string `json:"code"`
+	Msg  string `json:"msg"`
 }
 
 type UserRegisterRequest struct {

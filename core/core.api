@@ -440,6 +440,8 @@ type MailCodeSendRequest {
 }
 
 type MailCodeSendResponse {
+	Code string `json:"code"`
+	Msg  string `json:"msg"`
 }
 
 type UserRegisterRequest {

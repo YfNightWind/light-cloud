@@ -2,7 +2,6 @@ package logic
 
 import (
 	"context"
-	"errors"
 	"light-cloud/src/core/define"
 	"light-cloud/src/core/helper"
 	"light-cloud/src/core/model"
@@ -29,13 +28,15 @@ func NewMailCodeSendRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContex
 }
 
 func (l *MailCodeSendRegisterLogic) MailCodeSendRegister(req *types.MailCodeSendRequest) (resp *types.MailCodeSendResponse, err error) {
+	resp = new(types.MailCodeSendResponse)
 	// 若该邮箱未注册
 	count, err := l.svcCtx.SQL.Where("email = ? ", req.Email).Table(model.UserInfo{}).Count()
 	if err != nil {
+		resp.Msg = "error"
 		return
 	}
 	if count > 0 {
-		err = errors.New("该邮箱已被注册")
+		resp.Msg = "registered"
 		return
 	}
 
@@ -48,8 +49,10 @@ func (l *MailCodeSendRegisterLogic) MailCodeSendRegister(req *types.MailCodeSend
 	// 发送验证码
 	err = helper.SendMailCode(req.Email, code)
 	if err != nil {
-		return nil, err
+		resp.Msg = "error"
+		return
 	}
 
+	resp.Msg = "success"
 	return
 }
