@@ -37,10 +37,13 @@ func (l *ShareBasicDetailLogic) ShareBasicDetail(req *types.ShareBasicDetailRequ
 	// 获取资源详细信息
 	_, err = l.svcCtx.SQL.
 		Table("share_basic").
-		Select("share_basic.repository_identity, user_repository.name, repository_pool.ext, repository_pool.size, repository_pool.path").
-		Join("LEFT", "repository_pool", "share_basic.repository_identity = repository_pool.identity").
+		Select("share_basic.identity, share_basic.repository_identity, user_repository.name, repository_pool.ext, "+
+			"repository_pool.path, repository_pool.size, share_basic.click_num, share_basic.desc, "+
+			"user_info.name as owner, user_info.avatar, share_basic.expired_time, share_basic.updated_at").
+		Join("LEFT", "repository_pool", "repository_pool.identity = share_basic.repository_identity").
 		Join("LEFT", "user_repository", "user_repository.identity = share_basic.user_repository_identity").
-		Where("share_basic.identity = ? ", req.Identity).
+		Join("LEFT", "user_info", "share_basic.user_identity = user_info.identity").
+		Where("share_basic.identity = ?", req.Identity).
 		Get(resp)
 	if err != nil {
 		resp.Msg = "error"
