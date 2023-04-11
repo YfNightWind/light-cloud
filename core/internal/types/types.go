@@ -280,6 +280,8 @@ type UserRepositorySaveRequest struct {
 }
 
 type UserRepositorySaveResponse struct {
+	Msg  string `json:"msg"`
+	Code int    `json:"code"`
 }
 
 type FileUploadRequest struct {
